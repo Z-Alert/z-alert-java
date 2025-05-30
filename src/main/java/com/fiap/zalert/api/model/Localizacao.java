@@ -15,10 +15,10 @@ public class Localizacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idLocali;
 
-    @Digits(integer = 8, fraction = 6)
+    @Column(name = "lat_locali", columnDefinition = "DECIMAL(8,6)")
     private Double latLocali;
 
-    @Digits(integer = 8, fraction = 6)
+    @Column(name = "lng_locali", columnDefinition = "DECIMAL(8,6)")
     private Double lngLocali;
 
     private LocalDateTime dataHora;
