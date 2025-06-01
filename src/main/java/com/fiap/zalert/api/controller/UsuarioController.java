@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -68,6 +69,14 @@ public class UsuarioController {
     public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         usuarioService.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Retorna o usuário autenticado")
+    @GetMapping("/me")
+    public ResponseEntity<EntityModel<Usuario>> me(@AuthenticationPrincipal Usuario usuario) {
+        EntityModel<Usuario> resource = EntityModel.of(usuario);
+        resource.add(linkTo(methodOn(UsuarioController.class).me(usuario)).withSelfRel());
+        return ResponseEntity.ok(resource);
     }
 
     private PagedModel<EntityModel<Usuario>> toPagedModel(Page<Usuario> page) {
