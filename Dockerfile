@@ -1,7 +1,7 @@
 FROM gradle:jdk21-graal AS BUILD
 WORKDIR /usr/app/
 COPY . .
-RUN gradle fatJar
+RUN ./gradlew fatJar --no-daemon
 FROM openjdk:21-jdk-slim
 COPY --from=BUILD /usr/app .
 EXPOSE 8080
