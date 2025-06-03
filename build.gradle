@@ -45,3 +45,17 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('fatJar', Jar) {
+	manifest {
+		attributes 'Main-Class': 'com.fiap.zalert.api.ApiApplication'
+	}
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	archiveBaseName = 'zalert-api'
+	from {
+		configurations.runtimeClasspath.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+	with jar
+}
