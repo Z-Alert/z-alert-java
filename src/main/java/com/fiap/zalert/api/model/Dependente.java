@@ -24,7 +24,7 @@ public class Dependente {
     private Integer idadeDepen;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "usuarios_id_usu")
+    @JoinColumn(name = "usuario_id_usu")
     private Usuario usuario;
 
     @OneToMany(mappedBy = "dependente")
